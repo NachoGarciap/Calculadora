@@ -1,0 +1,73 @@
+1. Crear un panel para meter los botones, labels, etc. para que al moverlo no se descuandren
+
+2. Cambiar los nombres de las variables para no perderse
+
+3. Para que funcionen los botones numericos:
+
+Error:
+screen.setText("0"); --> lo que hace al presionar el boton es que aparezca solo un cero en la pantalla,
+ya que ira borrando el numero que estaba antes, y por lo tanto siempre saldrá el cero
+
+Correcto:
+screen.setText(screen.getText()+"0"); -->al presionar el botón lo que hacemos es traer el texto del campo
+screen y concatenaremos un cero
+
+4.Boton C (borrar) --> screen.setText(""); al dejarlo vacio, cada vez que se presione no saldrá nada
+
+5.Boton operadores --> crear variables al principio, de numeros y del caracter que queramos (+,-,/,*)
+
+num1 = Integer.parseInt(screen.getText()); --> nos dice que nuestra variable num1, que es de tipo int,
+se le va a pasar un valor de tipo entero, el cual lo trae de screen, con la funcion getText()
+
+	num1 = Double.parseDouble(screen.getText());--> guarde en esta variable el numero que marquemos
+        sign = "/"; --> guarda en la variable ese signo
+        screen.setText(""); --> desaparezca todo de la pantalla
+
+6.Boton igual
+
+	num2 = Double.parseDouble(screen.getText()); --> almacenar el segundo nunero
+
+Hariamos un switch para que cuando introduzcamos un simbolo elija la opcion correcta
+
+switch (sign){
+            case "+":
+                screen.setText(noZero(num1+num2)); /*screen.setText--> para poenr en la pantalla el texto que nosotros
+queramos, usamos el Integer.toString(num1+num2, ya que un jlabel (screen) se muestra un string, entonces al poner esto
+dice que combierta en un entero el resultado de num1+num2 */
+                break;
+                
+            case "-":
+                screen.setText(noZero(num1-num2));
+                break;
+                
+            case "*":
+                screen.setText(noZero(num1*num2));
+                break;
+                
+            case "/":
+                if(num2 !=0){
+                    screen.setText(noZero(num1/num2));
+                }
+                else{
+                    screen.setText("ERROR");
+                }                         
+                break;
+        }
+
+7.Boton punto para los decimales
+if(!(screen.getText().contains("."))){
+            screen.setText(screen.getText()+"."); --> si en la pantalla no hay ningun punto, aparecerá uno cuando lo
+pulsemos
+
+8.Funcion para que no salga decimales si su modulo es 0
+
+public String noZero (double result){
+        String ret="";
+        ret = Double.toString(result);
+        
+        if (result%1==0){
+            ret=ret.substring(0,ret.length()-2); --> cuenta de la posicion 0 a -2
+        }
+        
+        return ret;
+    }
